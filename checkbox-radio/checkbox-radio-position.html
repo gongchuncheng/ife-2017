@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>checkbox-radio</title>
+	<style>
+		input[type="checkbox"], input[type="radio"]{
+			display: none;
+		}
+		.check-group, .radio-group{
+			display: inline-block;
+		}
+		.check-bg, .radio-bg{
+			margin-top: 1px;
+			display: inline-block;
+			width: 16px;
+			height: 16px;
+			background: url('sprite.png') no-repeat;
+		}
+		.check-bg{
+			background-position: -25px -33px;
+		}
+		input[type="checkbox"]:checked + .check-bg{
+			background-position: -60px -32px;
+		}
+		.radio-bg{
+			background-position: -24px -10px;
+		}
+		input[type="radio"]:checked + .radio-bg{
+			background-position: -59px -10px;
+		}
+
+		.check-ele, .radio-ele{
+			position: relative;
+			display: inline-block;
+			width: 16px;
+			height: 16px;
+			border: 1px solid #d9d9d9;
+		}
+		.check-ele:after{
+			content: '';
+		    position: absolute;
+		    width: 9px;
+		    height: 5px;
+		    top: 3px;
+		    left: 3px;
+		}
+		input[type="checkbox"]:checked + .check-ele:after{
+			border: 2px solid #f00;
+			border-top: none;
+			border-right: none;
+			-webkit-transform: rotate(-45deg);
+		    -moz-transform: rotate(-45deg);
+		    -o-transform: rotate(-45deg);
+		    -ms-transform: rotate(-45deg);
+		    transform: rotate(-45deg);
+		}
+		.radio-ele{
+			border-radius: 50%;
+		}
+		input[type="radio"]:checked + .radio-ele:after{
+			content: '';
+			position: absolute;
+			width: 6px;
+			height: 6px;
+			border-radius: 50%;
+			left: 50%;
+			top: 50%;
+			margin-left: -3px;
+			margin-top: -3px;
+			background: #f00;
+		}
+		input[type="radio"]:checked + .radio-ele, input[type="checkbox"]:checked + .check-ele{
+			border: 1px solid #f00;
+		}
+	</style>
+</head>
+<body>
+	背景图片：
+	<br/>
+	兴趣：
+	<div class="check-group">
+		<label for="checkbox1">弹琴</label>
+		<input type="checkbox" id="checkbox1" name="check">
+		<label for="checkbox1" class="check-bg"></label>
+	</div>
+	<div class="check-group">
+		<label for="checkbox2">唱歌</label>
+		<input type="checkbox" id="checkbox2" name="check">
+		<label for="checkbox2" class="check-bg"></label>
+	</div>
+	<div class="check-group">
+		<label for="checkbox3">游泳</label>
+		<input type="checkbox" id="checkbox3" name="check">
+		<label for="checkbox3" class="check-bg"></label>
+	</div>
+	<br/>
+	性别：
+	<div class="radio-group">
+		<label for="input1">男</label>
+		<input type="radio" id="input1" name="input">
+		<label for="input1" class="radio-bg"></label>
+	</div>
+	<div class="radio-group">
+		<label for="input2">中</label>
+		<input type="radio" id="input2" name="input">
+		<label for="input2" class="radio-bg"></label>
+	</div>
+	<div class="radio-group">
+		<label for="input3">女</label>
+		<input type="radio" id="input3" name="input">
+		<label for="input3" class="radio-bg"></label>
+	</div>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	伪元素：
+	<br/>
+	兴趣：
+	<div class="check-group">
+		<label for="checkbox4">弹琴</label>
+		<input type="checkbox" id="checkbox4" name="check" checked="checked">
+		<label for="checkbox4" class="check-ele"></label>
+	</div>
+	<div class="check-group">
+		<label for="checkbox5">唱歌</label>
+		<input type="checkbox" id="checkbox5" name="check">
+		<label for="checkbox5" class="check-ele"></label>
+	</div>
+	<div class="check-group">
+		<label for="checkbox6">游泳</label>
+		<input type="checkbox" id="checkbox6" name="check">
+		<label for="checkbox6" class="check-ele"></label>
+	</div>
+	<br/>
+	性别：
+	<div class="radio-group">
+		<label for="input4">男</label>
+		<input type="radio" id="input4" name="input" checked="checked">
+		<label for="input4" class="radio-ele"></label>
+	</div>
+	<div class="radio-group">
+		<label for="input5">中</label>
+		<input type="radio" id="input5" name="input">
+		<label for="input5" class="radio-ele"></label>
+	</div>
+	<div class="radio-group">
+		<label for="input6">女</label>
+		<input type="radio" id="input6" name="input">
+		<label for="input6" class="radio-ele"></label>
+	</div>
+</body>
+</html>

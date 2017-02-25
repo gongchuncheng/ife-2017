@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="three.js"></script>
+</head>
+<body onload="init()">
+	
+	<canvas id="mainCanvas" width="800px" height="600px"></canvas>
+
+
+	<script>
+		function init(){
+			var renderer = new THREE.WebGLRenderer({
+			    canvas: document.getElementById('mainCanvas')
+			});
+			renderer.setClearColor(0x333333);
+
+			var scene = new THREE.Scene();
+
+			var camera = new THREE.OrthographicCamera(-2, 2, 1.5, -1.5, 1, 10);
+			camera.position.set(4, 3, 5);
+			camera.lookAt(new THREE.Vector3(0, 0, 0));
+			scene.add(camera);
+
+			var light = new THREE.DirectionalLight();
+			light.position.set(2, 5, 3);
+			scene.add(light);
+
+			var car = new THREE.Mesh(new THREE.CubeGeometry(2, 1, 1),
+		        new THREE.MeshLambertMaterial({
+				    color: '#f00'
+				})
+			);
+			scene.add(car);
+
+			var shellOne = new THREE.Mesh(new THREE.TorusGeometry(0.2, 0.1, 12, 72),
+		        new THREE.MeshLambertMaterial({
+				    color: '#0f0'
+				})
+			);
+			shellOne.position.set(-0.6, -0.5, 0.5);
+			scene.add(shellOne);
+
+			var shellTwo = new THREE.Mesh(new THREE.TorusGeometry(0.2, 0.1, 12, 72),
+		        new THREE.MeshLambertMaterial({
+				    color: '#0f0'
+				})
+			);
+			shellTwo.position.set(0.6, -0.5, 0.5);
+			scene.add(shellTwo);
+			renderer.render(scene, camera);
+		}
+	</script>
+</body>
+</html>
