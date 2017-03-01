@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>oncontextmenu</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			position: relative;
+			font-size: 60px;
+			text-align: center;
+		}
+		#simple-con{
+			font-size: 16px;
+			position: absolute;
+			border: 1px solid #ccc;
+		}
+		#simple-con li:hover{
+			background: #00f!important;
+			color: #fff;
+		}
+		#simple-con li{
+			cursor: pointer;
+			border-bottom: 1px solid #ccc;
+			box-shadow: 0 2px 3px rgba(0,0,0,0.15);
+		    -webkit-box-shadow: 0 2px 3px rgba(0,0,0,0.15);
+		    -webkit-transition: all .2s ease-in;
+		    -o-transition: all .2s ease-in;
+		    transition: all .2s ease-in;
+		}
+		#simple-con li:last-child{
+			border-bottom: none;
+		}
+		ul{
+			list-style: none;
+		}
+	</style>
+</head>
+<body>
+	click any where ~
+</body>
+<script>
+	var o = {
+		mousePos: {},
+		handle: {
+			create: function(){
+				o.handle.destroy();
+				var temp = document.createDocumentFragment(),
+				ul = document.createElement('ul');
+				ul.id = 'simple-con';
+				ul.style.left = o.options.posX + 'px';
+				ul.style.top = o.options.posY+ 'px';
+				temp.appendChild(ul);
+				for(var i=0; i<o.options.info.length; i++){
+					var li = document.createElement('li');
+					li.style.width = o.options.width + 'px';
+					li.style.height = o.options.height + 'px';
+					li.style.background = o.options.bg;
+					li.style.lineHeight = o.options.height + 'px';
+					li.innerHTML = o.options.info[i];
+					ul.appendChild(li);
+				}
+				document.getElementsByTagName('body')[0].appendChild(temp);
+			},
+			destroy: function(){
+				if(document.getElementById('simple-con')){
+					document.getElementById('simple-con').remove();
+				}
+			}
+		},
+		init: function(options){//初始化
+			o.bindOnmousemove();
+			o.bindOncontextmenu(options);
+			o.bindClick();
+		},
+		extend: function(obj1,obj2){//属性拓展
+			for(var o2 in obj2){
+				for(var o1 in obj1){
+					if(o1 == o2){
+						obj1[o1] = obj2[o1]
+					}else{
+						obj1[o2] = obj2[o2]
+					}
+				}
+			}
+			return obj1;
+		},
+		borderCheck: function(){//边缘检测
+			var pageH = window.innerHeight,
+				pageW = window.innerWidth;
+			o.options.posX = pageW - o.mousePos.x > parseInt(o.options.width) ? o.mousePos.x : o.mousePos.x - parseInt(o.options.width);
+			o.options.posY = pageH - o.mousePos.y > parseInt(o.options.height)*o.options.info.length ? o.mousePos.y : o.mousePos.y - parseInt(o.options.height)*o.options.info.length;
+		},
+		bindOncontextmenu: function(options){//绑定bindOncontextmenu事件
+			
+			document.oncontextmenu = function(){
+				console.log(o.mousePos.x + '----' + o.mousePos.y);
+				console.log(window.innerWidth + '++++' + window.innerHeight);
+				o.options = o.extend({
+					posX: o.mousePos.x,
+					posY: o.mousePos.y,
+					width: '50',
+					height: '20',
+					info: ['how','are','you'],
+					bg: '#fff'
+				},options);
+				o.borderCheck();
+				o.handle.create();
+				return false;
+			};
+		},
+		bindOnmousemove: function(){//绑定onmousemove事件
+			document.onmousemove = function(e){
+				e = e || window.event;
+				o.mousePos = o.getMousePosition(e);
+			};
+		},
+		bindClick: function(){//绑定单击事件
+			document.onclick = function(){
+				o.handle.destroy();
+			}
+		},
+		getMousePosition: function(e){//获取鼠标位置
+			if(e.pageX || e.pageY){
+				return {x:e.pageX, y:e.pageY};
+			}
+			return {
+				x:e.clientX + document.body.scrollLeft - document.body.clientLeft,
+				y:e.clientY + document.body.scrollTop - document.body.clientTop
+			};
+		}
+	};
+	o.init({
+		width: 80,
+		height: 40
+	});
+</script>
+</html>
