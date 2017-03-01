@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<input type="text" id="phone"> 电话号码 <button id="test-p">测试</button> </br>
+	<input type="text" id="words"> 单词 <button id="test-w">测试</button>
+	<script>
+
+		var oPhone = document.getElementById('phone');
+		var oTestp = document.getElementById('test-p');
+		var oWords = document.getElementById('words');
+		var oTestw = document.getElementById('test-w');
+
+		oTestp.onclick = function(){
+			if((/^1(3|4|5|7|8)\d{9}$/.test(oPhone.value))){ 
+		        alert("手机号码正确");  
+		        return false;
+		    }else{
+		    	alert("手机号码错误");  
+		        return false;
+		    }
+		}
+
+		oTestw.onclick = function(){
+			if(/^\b(\w+)\b\s+\b\1\b/.test(oWords.value)){
+				alert("有相邻重复单词");
+				return false;
+			}else{
+				alert("无相邻重复单词");
+				return false;
+			}
+		}
+	</script>
+</body>
+</html>
